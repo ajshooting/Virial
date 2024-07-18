@@ -33,7 +33,44 @@ document.getElementById('notifyButton').addEventListener('click', () => {
                     });
                 });
             }
-        }, 5000);
+        }, 0);
+    } else {
+        alert('このブラウザでは通知がサポートされていません。');
+    }
+});
+
+document.getElementById('notifyButton_2').addEventListener('click', () => {
+    if ('Notification' in window && 'serviceWorker' in navigator) {
+        setTimeout(() => {
+            if (Notification.permission === 'granted') {
+                navigator.serviceWorker.getRegistration().then(registration => {
+                    registration.showNotification('⚠️Virialの時間です⚠️', {
+                        body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
+                        icon: 'virial-192.png',
+                        sound: ''
+                    });
+                });
+            }
+        }, 0);
+    } else {
+        alert('このブラウザでは通知がサポートされていません。');
+    }
+});
+
+document.getElementById('notifyButton_3').addEventListener('click', () => {
+    if ('Notification' in window && 'serviceWorker' in navigator) {
+        if (Notification.permission === 'granted') {
+            for (let i = 0; i < 100; i++) {
+                navigator.serviceWorker.getRegistration().then(registration => {
+                    registration.showNotification('⚠️Virialの時間です⚠️', {
+                        body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
+                        icon: 'virial-192.png',
+                        sound: ''
+                    });
+                });
+            }
+
+        }
     } else {
         alert('このブラウザでは通知がサポートされていません。');
     }
