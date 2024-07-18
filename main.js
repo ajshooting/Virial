@@ -25,7 +25,7 @@ var title = '⚠️Virialの時間です⚠️'
 var payload = {
     body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
     icon: 'virial-192.png',
-    sound: ''
+    sound: '',
 }
 
 document.getElementById('notifyButton').addEventListener('click', () => {
