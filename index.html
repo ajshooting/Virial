@@ -20,7 +20,32 @@
 
     <br><br><br>
 
-    <div id="Explain_Virial">\(G=\sum_{i}\textbf{r}_i\cdot\textbf{p}_i\)</div>
+    <div id="Virial">
+        \begin{equation*}
+        G=\sum_{i}\textbf{r}_i\cdot\textbf{p}_i
+        \end{equation*}
+    </div>
+
+    <div id="Explain_Virial">
+        <p>以下証明</p>
+        \begin{align*}
+        \frac{\mathrm{d}G}{\mathrm{d}t} &= \sum_{i}\textbf{p}_i\cdot\frac{\mathrm{d}\textbf{r}_i}{\mathrm{d}t} +
+        \sum_{i}\frac{\mathrm{d}\textbf{p}_i}{\mathrm{d}t}\cdot\textbf{r}_i \\
+        &= \sum_i m_i (\textbf{v}_i)^2 + \sum_i \textbf{F}_i \cdot \textbf{r}_i \\
+        &= \sum_i 2 \times \frac{1}{2} m_i (\textbf{v}_i)^2 + \sum_i \textbf{F}_i \cdot \textbf{r}_i \\
+        &= 2T + \sum_i \textbf{F}_i \cdot \textbf{r}_i
+        \end{align*}
+        ここで
+        \begin{align*}
+        \lim_{t \to \infty} \frac{1}{t} \int_0^t \frac{\mathrm{d}C_{vir} }{\mathrm{d}t} \, \mathrm{d}t &= \lim_{t \to
+        \infty} \frac{C_{vir}(t) - C_{vir}(0)}{t} = 0
+        \end{align*}
+        また、
+        \begin{align*}
+        0 &= 2 \langle T \rangle + \left\langle \sum_i \textbf{F}_i \cdot \textbf{r}_i \right\rangle
+        \end{align*}
+
+    </div>
     <script src="main.js"></script>
 </body>
 

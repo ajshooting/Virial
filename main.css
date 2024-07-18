@@ -12,9 +12,15 @@ body {
     font-weight: bold;
 }
 
-#Explain_Virial {
+#Virial {
     top: 50%;
     text-align: center;
     color: white;
     font-size: 30px;
+}
+
+#Explain_Virial {
+    text-align: center;
+    color: white;
+    font-size: 10px;
 }
