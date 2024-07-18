@@ -8,6 +8,13 @@ body {
     text-align: center;
     color: white;
     font-family: "Gothic A1", "MS Gothic", sans-serif;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
+}
+
+#Explain_Virial {
+    top: 50%;
+    text-align: center;
+    color: white;
+    font-size: 30px;
 }
