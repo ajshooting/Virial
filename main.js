@@ -21,16 +21,19 @@ document.getElementById('notifySet').addEventListener('click', () => {
     }
 });
 
+var title = '⚠️Virialの時間です⚠️'
+var payload = {
+    body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
+    icon: 'virial-192.png',
+    sound: ''
+}
+
 document.getElementById('notifyButton').addEventListener('click', () => {
     if ('Notification' in window && 'serviceWorker' in navigator) {
         setTimeout(() => {
             if (Notification.permission === 'granted') {
                 navigator.serviceWorker.getRegistration().then(registration => {
-                    registration.showNotification('⚠️Virialの時間です⚠️', {
-                        body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
-                        icon: 'virial-192.png',
-                        sound: ''
-                    });
+                    registration.showNotification(title, payload);
                 });
             }
         }, 0);
@@ -44,11 +47,7 @@ document.getElementById('notifyButton_2').addEventListener('click', () => {
         setTimeout(() => {
             if (Notification.permission === 'granted') {
                 navigator.serviceWorker.getRegistration().then(registration => {
-                    registration.showNotification('⚠️Virialの時間です⚠️', {
-                        body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
-                        icon: 'virial-192.png',
-                        sound: ''
-                    });
+                    registration.showNotification(title, payload);
                 });
             }
         }, 0);
@@ -62,14 +61,9 @@ document.getElementById('notifyButton_3').addEventListener('click', () => {
         if (Notification.permission === 'granted') {
             for (let i = 0; i < 100; i++) {
                 navigator.serviceWorker.getRegistration().then(registration => {
-                    registration.showNotification('⚠️Virialの時間です⚠️', {
-                        body: '2分以内にVirial定理を証明しないと他の友達の証明を見ることができません！',
-                        icon: 'virial-192.png',
-                        sound: ''
-                    });
+                    registration.showNotification(title, payload);
                 });
             }
-
         }
     } else {
         alert('このブラウザでは通知がサポートされていません。');
