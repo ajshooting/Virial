@@ -50,7 +50,7 @@ document.getElementById('notifyButton_2').addEventListener('click', () => {
                     registration.showNotification(title, payload);
                 });
             }
-        }, 0);
+        }, 5000);
     } else {
         alert('このブラウザでは通知がサポートされていません。');
     }
