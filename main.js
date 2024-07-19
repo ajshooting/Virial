@@ -17,7 +17,7 @@ document.getElementById('notifySet').addEventListener('click', () => {
             }
         });
     } else {
-        alert('This browser does not support notifications.');
+        alert('通知がサポートされていません..');
     }
 });
 
@@ -38,7 +38,7 @@ document.getElementById('notifyButton').addEventListener('click', () => {
             }
         }, 0);
     } else {
-        alert('このブラウザでは通知がサポートされていません。');
+        alert('通知の許可をしてください！');
     }
 });
 
@@ -52,7 +52,7 @@ document.getElementById('notifyButton_2').addEventListener('click', () => {
             }
         }, 5000);
     } else {
-        alert('このブラウザでは通知がサポートされていません。');
+        alert('通知の許可をしてください！');
     }
 });
 
@@ -66,6 +66,6 @@ document.getElementById('notifyButton_3').addEventListener('click', () => {
             }
         }
     } else {
-        alert('このブラウザでは通知がサポートされていません。');
+        alert('通知の許可をしてください！');
     }
 });
