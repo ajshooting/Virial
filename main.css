@@ -24,3 +24,10 @@ body {
     color: white;
     font-size: 10px;
 }
+
+textarea {
+    width: 80%;
+    height: 1000px;
+    background-color: black;
+    color: white;
+}
