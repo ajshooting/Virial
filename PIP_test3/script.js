@@ -92,6 +92,36 @@ function stopCamera(type) {
     }
 }
 
+async function restartCamera(type) {
+    const constraints = {
+        front: {
+            video: {
+                facingMode: "user"
+            }
+        },
+        back: {
+            video: {
+                facingMode: "environment"
+            }
+        }
+    };
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
+        const videoElement = document.getElementById(`${type}-camera`);
+        videoElement.srcObject = stream;
+
+        if (type === 'front') {
+            frontStream = stream;
+        } else {
+            backStream = stream;
+        }
+    } catch (error) {
+        console.error(`Error accessing ${type} camera: `, error);
+        alert(`カメラの再起動に失敗しました: ${error.message}`);
+    }
+}
+
 window.addEventListener('load', () => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         console.error("Your browser does not support getUserMedia API");
