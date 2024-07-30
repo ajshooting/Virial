@@ -67,58 +67,33 @@ function stopCamera(type) {
     if (stream) {
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop());
-        
+
         // Capture the current frame
         const canvas = document.createElement('canvas');
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
+        canvas.width = videoElement.videoWidth || 640; // Fallback width
+        canvas.height = videoElement.videoHeight || 480; // Fallback height
         const context = canvas.getContext('2d');
         context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const imgDataUrl = canvas.toDataURL('image/png'); // Ensure PNG format
+        const imgDataUrl = canvas.toDataURL('image/png');
+        console.log(`Captured image URL: ${imgDataUrl}`); // Debug log
 
         // Replace the video element with an image element
         const imgElement = document.createElement('img');
+        imgElement.onload = () => {
+            videoElement.replaceWith(imgElement);
+        };
+        imgElement.onerror = () => {
+            console.error('Failed to load the captured image');
+        };
         imgElement.src = imgDataUrl;
         imgElement.style.width = '100%';
         imgElement.style.height = '100%';
-
-        videoElement.replaceWith(imgElement);
 
         if (type === 'front') {
             frontStream = null;
         } else {
             backStream = null;
         }
-    }
-}
-
-async function restartCamera(type) {
-    const constraints = {
-        front: {
-            video: {
-                facingMode: "user"
-            }
-        },
-        back: {
-            video: {
-                facingMode: "environment"
-            }
-        }
-    };
-
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
-        const videoElement = document.getElementById(`${type}-camera`);
-        videoElement.srcObject = stream;
-
-        if (type === 'front') {
-            frontStream = stream;
-        } else {
-            backStream = stream;
-        }
-    } catch (error) {
-        console.error(`Error accessing ${type} camera: `, error);
-        alert(`カメラの再起動に失敗しました: ${error.message}`);
     }
 }
 
