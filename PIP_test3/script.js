@@ -68,14 +68,12 @@ function stopCamera(type) {
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop());
 
-        // Capture the current frame
-        const canvas = document.createElement('canvas');
-        canvas.width = videoElement.videoWidth || 640; // Fallback width
-        canvas.height = videoElement.videoHeight || 480; // Fallback height
-        const context = canvas.getContext('2d');
-
         // Ensure the video element is ready before drawing the frame
-        videoElement.addEventListener('loadeddata', () => {
+        requestAnimationFrame(() => {
+            const canvas = document.createElement('canvas');
+            canvas.width = videoElement.videoWidth || 640; // Fallback width
+            canvas.height = videoElement.videoHeight || 480; // Fallback height
+            const context = canvas.getContext('2d');
             context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
             const imgDataUrl = canvas.toDataURL('image/png');
             console.log(`Captured image URL: ${imgDataUrl}`); // Debug log
