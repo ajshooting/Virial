@@ -65,11 +65,8 @@ function stopCamera(type) {
     const stream = type === 'front' ? frontStream : backStream;
 
     if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-
-        // Ensure the video element is ready before drawing the frame
-        requestAnimationFrame(() => {
+        // Capture the current frame after a short delay
+        setTimeout(() => {
             const canvas = document.createElement('canvas');
             canvas.width = videoElement.videoWidth || 640; // Fallback width
             canvas.height = videoElement.videoHeight || 480; // Fallback height
@@ -95,7 +92,10 @@ function stopCamera(type) {
             } else {
                 backStream = null;
             }
-        });
+        }, 100); // Delay to ensure video frame is ready
+
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
     }
 }
 
