@@ -18,7 +18,7 @@
     <button id="notifyButton_2">5秒後に通知を送信</button>
     <button id="notifyButton_3">100個通知を送信</button>
 
-    <br><br><br>
+    <br><br>
 
     <div id="Virial">
         \begin{equation*}
@@ -26,36 +26,13 @@
         \end{equation*}
     </div>
 
-    <div id="Explain_Virial">
-        ビリアル定理を証明してください。
-        \begin{equation*}
-        \langle K \rangle = \left\langle \sum_{i=1}^{N}\frac{\textbf{p}_i}{2m_i} \right\rangle = \sum_{i=1}^{N}
-        \left\langle \frac{\textbf{p}_i}{2m_i} \right\rangle = -\frac{1}{2}\sum_{i=1}^{N} \langle \textbf{F}_i \cdot
-        \textbf{r}_i \rangle
-        G=\sum_{i}\textbf{r}_i\cdot\textbf{p}_i
-        \end{equation*}
-        <br>
-        <textarea>\frac{\mathrm{d}G}{\mathrm{d}t} = ...</textarea>
+    <br>
+    <button onclick="location.href='./proof'">証明へ</button>
+    <button onclick="location.href='./PIP_test'">撮影へ</button>
+    <button onclick="location.href='./PIP_test2'">撮影へ-2</button>
 
-        <!-- <p>以下証明</p>
-        \begin{align*}
-        \frac{\mathrm{d}G}{\mathrm{d}t} &= \sum_{i}\textbf{p}_i\cdot\frac{\mathrm{d}\textbf{r}_i}{\mathrm{d}t} +
-        \sum_{i}\frac{\mathrm{d}\textbf{p}_i}{\mathrm{d}t}\cdot\textbf{r}_i \\
-        &= \sum_i m_i (\textbf{v}_i)^2 + \sum_i \textbf{F}_i \cdot \textbf{r}_i \\
-        &= \sum_i 2 \times \frac{1}{2} m_i (\textbf{v}_i)^2 + \sum_i \textbf{F}_i \cdot \textbf{r}_i \\
-        &= 2T + \sum_i \textbf{F}_i \cdot \textbf{r}_i
-        \end{align*}
-        ここで
-        \begin{align*}
-        \lim_{t \to \infty} \frac{1}{t} \int_0^t \frac{\mathrm{d}C_{vir} }{\mathrm{d}t} \, \mathrm{d}t &= \lim_{t \to
-        \infty} \frac{C_{vir}(t) - C_{vir}(0)}{t} = 0
-        \end{align*}
-        また、
-        \begin{align*}
-        0 &= 2 \langle T \rangle + \left\langle \sum_i \textbf{F}_i \cdot \textbf{r}_i \right\rangle
-        \end{align*} -->
 
-    </div>
+    
     <script src="main.js"></script>
 </body>
 
