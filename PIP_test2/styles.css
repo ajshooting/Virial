@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -32,7 +33,8 @@ button {
     overflow: hidden;
 }
 
-video, img {
+video,
+img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -50,7 +52,8 @@ video, img {
     border: 2px solid white;
 }
 
-.overlay video, .overlay img {
+.overlay video,
+.overlay img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -65,4 +68,5 @@ video, img {
     color: white;
     font-size: 24px;
     opacity: 0.5;
+    font-family: "Gothic A1", "MS Gothic", sans-serif;
 }

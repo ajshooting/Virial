@@ -55,7 +55,7 @@ function stopCamera(type) {
     if (stream) {
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop());
-        
+
         // Capture the current frame
         const canvas = document.createElement('canvas');
         canvas.width = videoElement.videoWidth;
