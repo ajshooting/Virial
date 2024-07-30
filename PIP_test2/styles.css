@@ -32,7 +32,7 @@ button {
     overflow: hidden;
 }
 
-video {
+video, img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -50,9 +50,19 @@ video {
     border: 2px solid white;
 }
 
-.overlay video {
+.overlay video, .overlay img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 24px;
+    opacity: 0.5;
 }
