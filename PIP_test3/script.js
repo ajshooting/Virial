@@ -33,15 +33,27 @@ async function startCamera(type) {
 
     try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
-        const videoElement = document.getElementById(`${type}-camera`);
+        let videoElement = document.getElementById(`${type}-camera`);
+
+        // Replace the image element with a new video element if it exists
+        if (videoElement.tagName === 'IMG') {
+            const newVideoElement = document.createElement('video');
+            newVideoElement.id = `${type}-camera`;
+            newVideoElement.autoplay = true;
+            newVideoElement.playsInline = true;
+            newVideoElement.style.width = '100%';
+            newVideoElement.style.height = '100%';
+            videoElement.replaceWith(newVideoElement);
+            videoElement = newVideoElement;
+        }
+
+        videoElement.srcObject = stream;
 
         if (type === 'front') {
             frontStream = stream;
         } else {
             backStream = stream;
         }
-
-        videoElement.srcObject = stream;
     } catch (error) {
         console.error(`Error accessing ${type} camera: `, error);
         alert(`カメラのアクセスに失敗しました: ${error.message}`);
@@ -55,14 +67,14 @@ function stopCamera(type) {
     if (stream) {
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop());
-
+        
         // Capture the current frame
         const canvas = document.createElement('canvas');
         canvas.width = videoElement.videoWidth;
         canvas.height = videoElement.videoHeight;
         const context = canvas.getContext('2d');
         context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const imgDataUrl = canvas.toDataURL();
+        const imgDataUrl = canvas.toDataURL('image/png'); // Ensure PNG format
 
         // Replace the video element with an image element
         const imgElement = document.createElement('img');
