@@ -1,42 +1,82 @@
-document.getElementById('start-cameras').addEventListener('click', () => {
-    setupCameras();
+let frontStream = null;
+let backStream = null;
+
+document.getElementById('start-front-camera').addEventListener('click', () => {
+    startCamera('front');
 });
 
-async function setupCameras() {
+document.getElementById('stop-front-camera').addEventListener('click', () => {
+    stopCamera('front');
+});
+
+document.getElementById('start-back-camera').addEventListener('click', () => {
+    startCamera('back');
+});
+
+document.getElementById('stop-back-camera').addEventListener('click', () => {
+    stopCamera('back');
+});
+
+async function startCamera(type) {
     const constraints = {
-        video: true,
-        audio: false
+        front: {
+            video: {
+                facingMode: "user"
+            }
+        },
+        back: {
+            video: {
+                facingMode: "environment"
+            }
+        }
     };
 
     try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
-        
-        const frontCamera = videoDevices.find(device => device.label.toLowerCase().includes('front'));
-        const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('environment'));
+        const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
+        const videoElement = document.getElementById(`${type}-camera`);
 
-        if (!frontCamera || !backCamera) {
-            console.error("Both front and back cameras are not available.");
-            alert("前面および背面のカメラの両方が利用できません。");
-            return;
+        if (type === 'front') {
+            frontStream = stream;
+        } else {
+            backStream = stream;
         }
 
-        const frontStream = await navigator.mediaDevices.getUserMedia({
-            video: { deviceId: frontCamera.deviceId }
-        });
-
-        const backStream = await navigator.mediaDevices.getUserMedia({
-            video: { deviceId: backCamera.deviceId }
-        });
-
-        const frontCameraVideo = document.getElementById('front-camera');
-        const backCameraVideo = document.getElementById('back-camera');
-
-        frontCameraVideo.srcObject = frontStream;
-        backCameraVideo.srcObject = backStream;
+        videoElement.srcObject = stream;
     } catch (error) {
-        console.error("Error accessing cameras: ", error);
+        console.error(`Error accessing ${type} camera: `, error);
         alert(`カメラのアクセスに失敗しました: ${error.message}`);
+    }
+}
+
+function stopCamera(type) {
+    const videoElement = document.getElementById(`${type}-camera`);
+    const stream = type === 'front' ? frontStream : backStream;
+
+    if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        
+        // Capture the current frame
+        const canvas = document.createElement('canvas');
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+        const context = canvas.getContext('2d');
+        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+        const imgDataUrl = canvas.toDataURL();
+
+        // Replace the video element with an image element
+        const imgElement = document.createElement('img');
+        imgElement.src = imgDataUrl;
+        imgElement.style.width = '100%';
+        imgElement.style.height = '100%';
+
+        videoElement.replaceWith(imgElement);
+
+        if (type === 'front') {
+            frontStream = null;
+        } else {
+            backStream = null;
+        }
     }
 }
 
