@@ -73,27 +73,31 @@ function stopCamera(type) {
         canvas.width = videoElement.videoWidth || 640; // Fallback width
         canvas.height = videoElement.videoHeight || 480; // Fallback height
         const context = canvas.getContext('2d');
-        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const imgDataUrl = canvas.toDataURL('image/png');
-        console.log(`Captured image URL: ${imgDataUrl}`); // Debug log
 
-        // Replace the video element with an image element
-        const imgElement = document.createElement('img');
-        imgElement.onload = () => {
-            videoElement.replaceWith(imgElement);
-        };
-        imgElement.onerror = () => {
-            console.error('Failed to load the captured image');
-        };
-        imgElement.src = imgDataUrl;
-        imgElement.style.width = '100%';
-        imgElement.style.height = '100%';
+        // Ensure the video element is ready before drawing the frame
+        videoElement.addEventListener('loadeddata', () => {
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            const imgDataUrl = canvas.toDataURL('image/png');
+            console.log(`Captured image URL: ${imgDataUrl}`); // Debug log
 
-        if (type === 'front') {
-            frontStream = null;
-        } else {
-            backStream = null;
-        }
+            // Replace the video element with an image element
+            const imgElement = document.createElement('img');
+            imgElement.onload = () => {
+                videoElement.replaceWith(imgElement);
+            };
+            imgElement.onerror = () => {
+                console.error('Failed to load the captured image');
+            };
+            imgElement.src = imgDataUrl;
+            imgElement.style.width = '100%';
+            imgElement.style.height = '100%';
+
+            if (type === 'front') {
+                frontStream = null;
+            } else {
+                backStream = null;
+            }
+        });
     }
 }
 
