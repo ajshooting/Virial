@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カメラフィード</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="button-container">
+        <button id="start-cameras">カメラ許可</button>
+    </div>
+    <div class="container">
+        <video id="back-camera" autoplay playsinline></video>
+        <div class="overlay">
+            <video id="front-camera" autoplay playsinline></video>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
