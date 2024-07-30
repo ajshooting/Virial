@@ -1,30 +1,38 @@
-document.getElementById('start-camera').addEventListener('click', () => {
-    setupCameras();
+document.getElementById('start-front-camera').addEventListener('click', () => {
+    setupCamera('front');
 });
 
-async function setupCameras() {
-    const constraintsBackCamera = {
-        video: {
-            facingMode: { exact: "environment" } // 外カメラ
-        }
-    };
+document.getElementById('start-back-camera').addEventListener('click', () => {
+    setupCamera('back');
+});
 
-    const constraintsFrontCamera = {
-        video: {
-            facingMode: "user" // 内カメラ
+async function setupCamera(type) {
+    const constraints = {
+        front: {
+            video: {
+                facingMode: "user" // 内カメラ
+            }
+        },
+        back: {
+            video: {
+                facingMode: "environment" // 外カメラ
+            }
         }
     };
 
     try {
-        const backStream = await navigator.mediaDevices.getUserMedia(constraintsBackCamera);
-        const frontStream = await navigator.mediaDevices.getUserMedia(constraintsFrontCamera);
-
-        const backCameraVideo = document.getElementById('back-camera');
-        const frontCameraVideo = document.getElementById('front-camera');
-
-        backCameraVideo.srcObject = backStream;
-        frontCameraVideo.srcObject = frontStream;
+        const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
+        const videoElement = document.getElementById(`${type}-camera`);
+        videoElement.srcObject = stream;
     } catch (error) {
-        console.error("Error accessing camera: ", error);
+        console.error(`Error accessing ${type} camera: `, error);
+        alert(`カメラのアクセスに失敗しました: ${error.message}`);
     }
 }
+
+window.addEventListener('load', () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.error("Your browser does not support getUserMedia API");
+        alert("このブラウザはカメラアクセスをサポートしていません。");
+    }
+});
