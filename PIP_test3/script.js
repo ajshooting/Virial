@@ -33,15 +33,27 @@ async function startCamera(type) {
 
     try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
-        const videoElement = document.getElementById(`${type}-camera`);
+        let videoElement = document.getElementById(`${type}-camera`);
+
+        // Replace the image element with a new video element if it exists
+        if (videoElement.tagName === 'IMG') {
+            const newVideoElement = document.createElement('video');
+            newVideoElement.id = `${type}-camera`;
+            newVideoElement.autoplay = true;
+            newVideoElement.playsInline = true;
+            newVideoElement.style.width = '100%';
+            newVideoElement.style.height = '100%';
+            videoElement.replaceWith(newVideoElement);
+            videoElement = newVideoElement;
+        }
+
+        videoElement.srcObject = stream;
 
         if (type === 'front') {
             frontStream = stream;
         } else {
             backStream = stream;
         }
-
-        videoElement.srcObject = stream;
     } catch (error) {
         console.error(`Error accessing ${type} camera: `, error);
         alert(`カメラのアクセスに失敗しました: ${error.message}`);
@@ -58,19 +70,24 @@ function stopCamera(type) {
 
         // Capture the current frame
         const canvas = document.createElement('canvas');
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
+        canvas.width = videoElement.videoWidth || 640; // Fallback width
+        canvas.height = videoElement.videoHeight || 480; // Fallback height
         const context = canvas.getContext('2d');
         context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const imgDataUrl = canvas.toDataURL();
+        const imgDataUrl = canvas.toDataURL('image/png');
+        console.log(`Captured image URL: ${imgDataUrl}`); // Debug log
 
         // Replace the video element with an image element
         const imgElement = document.createElement('img');
+        imgElement.onload = () => {
+            videoElement.replaceWith(imgElement);
+        };
+        imgElement.onerror = () => {
+            console.error('Failed to load the captured image');
+        };
         imgElement.src = imgDataUrl;
         imgElement.style.width = '100%';
         imgElement.style.height = '100%';
-
-        videoElement.replaceWith(imgElement);
 
         if (type === 'front') {
             frontStream = null;
