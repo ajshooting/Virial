@@ -28,18 +28,19 @@ async function startCamera(type) {
         const videoElement = document.getElementById(`${type}-camera`);
 
         // Replace the image element with a new video element if it exists
-        if (videoElement.tagName === 'IMG') {
-            const newVideoElement = document.createElement('video');
-            newVideoElement.id = `${type}-camera`;
-            newVideoElement.autoplay = true;
-            newVideoElement.playsInline = true;
-            newVideoElement.style.width = '100%';
-            newVideoElement.style.height = '100%';
-            videoElement.replaceWith(newVideoElement);
-            videoElement = newVideoElement;
-        }
+        // if (videoElement.tagName === 'IMG') {
+        //     const newVideoElement = document.createElement('video');
+        //     newVideoElement.id = `${type}-camera`;
+        //     newVideoElement.autoplay = true;
+        //     newVideoElement.playsInline = true;
+        //     newVideoElement.style.width = '100%';
+        //     newVideoElement.style.height = '100%';
+        //     videoElement.replaceWith(newVideoElement);
+        //     videoElement = newVideoElement;
+        // }
 
         videoElement.srcObject = stream;
+        videoElement.style.display = 'block';
 
         if (type === 'front') {
             frontStream = stream;
@@ -69,25 +70,31 @@ function stopCamera(type) {
 
             // Replace the video element with an image element
             const imgElement = document.createElement('img');
-            imgElement.onload = () => {
-                videoElement.replaceWith(imgElement);
-            };
-            imgElement.onerror = () => {
-                console.error('Failed to load the captured image');
-            };
+
+            // imgElement.onload = () => {
+            //     videoElement.replaceWith(imgElement);
+            // };
+            // imgElement.onerror = () => {
+            //     console.error('Failed to load the captured image');
+            // };
             imgElement.src = imgDataUrl;
             imgElement.style.width = '100%';
             imgElement.style.height = '100%';
+
+            imgElement.style.display = 'block'; // Ensure the image is displayed
+            videoElement.parentNode.replaceChild(imgElement, videoElement); // Replace the video element with the image element
+            imgElement.id = `${type}-camera`;
+
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
 
             if (type === 'front') {
                 frontStream = null;
             } else {
                 backStream = null;
             }
-        }, 100); // Delay to ensure video frame is ready
+        }, 10); // Delay to ensure video frame is ready
 
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
     }
 }
 
