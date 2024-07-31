@@ -41,7 +41,7 @@ async function startCamera(type) {
     }
 }
 
-async function stopCamera(type) {
+function stopCamera(type) {
     const videoElement = document.getElementById(`${type}-camera`);
     const stream = type === 'front' ? frontStream : backStream;
 
@@ -70,29 +70,6 @@ async function stopCamera(type) {
             frontStream = null;
         } else {
             backStream = null;
-        }
-
-
-        const constraints = {
-            front: { video: { facingMode: "user" } },
-            back: { video: { facingMode: "environment" } }
-        };
-
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
-            const videoElement = document.getElementById(`${type}-camera`);
-
-            videoElement.srcObject = stream;
-            videoElement.style.display = 'block';
-
-            if (type === 'front') {
-                frontStream = stream;
-            } else {
-                backStream = stream;
-            }
-        } catch (error) {
-            console.error(`Error accessing ${type} camera: `, error);
-            alert(`カメラのアクセスに失敗しました: ${error.message}`);
         }
     }
 }
