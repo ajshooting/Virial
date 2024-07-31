@@ -41,7 +41,6 @@ async function startCamera(type) {
     }
 }
 
-
 function stopCamera(type) {
     const videoElement = document.getElementById(`${type}-camera`);
     const stream = type === 'front' ? frontStream : backStream;
