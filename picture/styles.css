@@ -1,0 +1,73 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.button-container {
+    position: absolute;
+    top: 10px;
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 5px 1px;
+    font-size: 8px;
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+video,
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30%;
+    height: 30%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid white;
+}
+
+.overlay video,
+.overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 24px;
+    opacity: 0.5;
+    font-family: "Gothic A1", "MS Gothic", sans-serif;
+    font-weight: bold;
+}
