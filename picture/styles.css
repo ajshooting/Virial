@@ -18,6 +18,7 @@ html {
     z-index: 10;
     display: flex;
     gap: 10px;
+    padding: 2px;
 }
 
 button {
