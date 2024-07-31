@@ -12,8 +12,9 @@ html {
 }
 
 .button-container {
-    position: absolute;
-    top: 10px;
+    /* position: absolute; */
+    /* bottom: 10px;
+    right: 10px; */
     z-index: 10;
     display: flex;
     gap: 10px;
@@ -69,5 +70,14 @@ img {
     font-size: 24px;
     opacity: 0.5;
     font-family: "Gothic A1", "MS Gothic", sans-serif;
+    font-weight: bold;
+}
+
+#title {
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: "Gothic A1", "MS Gothic", sans-serif;
+    font-size: 35px;
     font-weight: bold;
 }
