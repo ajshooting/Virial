@@ -46,6 +46,10 @@ function stopCamera(type) {
     const stream = type === 'front' ? frontStream : backStream;
 
     if (stream) {
+
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+
         // Capture the current frame
         const canvas = document.createElement('canvas');
         canvas.width = videoElement.videoWidth;
@@ -61,9 +65,6 @@ function stopCamera(type) {
         imgElement.style.height = '100%';
         videoElement.replaceWith(imgElement);
         imgElement.id = `${type}-camera`;
-
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
 
         if (type === 'front') {
             frontStream = null;
