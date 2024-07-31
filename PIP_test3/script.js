@@ -19,21 +19,13 @@ document.getElementById('stop-back-camera').addEventListener('click', () => {
 
 async function startCamera(type) {
     const constraints = {
-        front: {
-            video: {
-                facingMode: "user"
-            }
-        },
-        back: {
-            video: {
-                facingMode: "environment"
-            }
-        }
+        front: { video: { facingMode: "user" } },
+        back: { video: { facingMode: "environment" } }
     };
 
     try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
-        let videoElement = document.getElementById(`${type}-camera`);
+        const videoElement = document.getElementById(`${type}-camera`);
 
         // Replace the image element with a new video element if it exists
         if (videoElement.tagName === 'IMG') {
