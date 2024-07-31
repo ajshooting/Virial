@@ -46,10 +46,6 @@ function stopCamera(type) {
     const stream = type === 'front' ? frontStream : backStream;
 
     if (stream) {
-
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-
         // Capture the current frame
         const canvas = document.createElement('canvas');
         canvas.width = videoElement.videoWidth;
@@ -63,8 +59,12 @@ function stopCamera(type) {
         imgElement.src = imgDataUrl;
         imgElement.style.width = '100%';
         imgElement.style.height = '100%';
-        videoElement.replaceWith(imgElement);
+        imgElement.style.display = 'block'; // Ensure the image is displayed
+        videoElement.parentNode.replaceChild(imgElement, videoElement); // Replace the video element with the image element
         imgElement.id = `${type}-camera`;
+
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
 
         if (type === 'front') {
             frontStream = null;
@@ -73,6 +73,7 @@ function stopCamera(type) {
         }
     }
 }
+
 
 window.addEventListener('load', () => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
