@@ -27,18 +27,6 @@ async function startCamera(type) {
         const stream = await navigator.mediaDevices.getUserMedia(constraints[type]);
         const videoElement = document.getElementById(`${type}-camera`);
 
-        // Replace the image element with a new video element if it exists
-        // if (videoElement.tagName === 'IMG') {
-        //     const newVideoElement = document.createElement('video');
-        //     newVideoElement.id = `${type}-camera`;
-        //     newVideoElement.autoplay = true;
-        //     newVideoElement.playsInline = true;
-        //     newVideoElement.style.width = '100%';
-        //     newVideoElement.style.height = '100%';
-        //     videoElement.replaceWith(newVideoElement);
-        //     videoElement = newVideoElement;
-        // }
-
         videoElement.srcObject = stream;
         videoElement.style.display = 'block';
 
@@ -71,18 +59,12 @@ function stopCamera(type) {
             // Replace the video element with an image element
             const imgElement = document.createElement('img');
 
-            // imgElement.onload = () => {
-            //     videoElement.replaceWith(imgElement);
-            // };
-            // imgElement.onerror = () => {
-            //     console.error('Failed to load the captured image');
-            // };
             imgElement.src = imgDataUrl;
             imgElement.style.width = '100%';
             imgElement.style.height = '100%';
 
-            imgElement.style.display = 'block'; // Ensure the image is displayed
-            videoElement.parentNode.replaceChild(imgElement, videoElement); // Replace the video element with the image element
+            imgElement.style.display = 'block';
+            videoElement.parentNode.replaceChild(imgElement, videoElement);
             imgElement.id = `${type}-camera`;
 
             const tracks = stream.getTracks();
@@ -93,7 +75,7 @@ function stopCamera(type) {
             } else {
                 backStream = null;
             }
-        }, 10); // Delay to ensure video frame is ready
+        }, 10);
 
     }
 }

@@ -10,4 +10,8 @@ link : [https://ajshooting.github.io/Virial](https://ajshooting.github.io/Virial
 
 # Androidの人
 1. Chromeで開く
-2. 最初に通知許可で行けるはず(動作未確認)
+2. 最初に通知許可で行けるはず(動作未確認)  
+
+
+
+(履歴に頑張った後がある)
