@@ -3,7 +3,7 @@ Virial(ビリアル)というアプリケーションです。PWAしてみたか
 
 link : [https://ajshooting.github.io/Virial](https://ajshooting.github.io/Virial)
 
-# iOS(16.4以上のみ)の人  
+# iOS(16.4以上)の人  
 1. 「**Safariで**」リンクを開く
 2. 共有マークから [ホーム画面に追加] を選択
 3. ホーム画面から開いて最初に通知許可をする
